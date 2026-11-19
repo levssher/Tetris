@@ -1,5 +1,5 @@
-#ifndef PROJECT_SAGI_LEV_C___POINT_H
-#define PROJECT_SAGI_LEV_C___POINT_H
+#ifndef TETRIS_POINT_H
+#define TETRIS_POINT_H
 
 class Point {
 
@@ -8,4 +8,4 @@ class Point {
 
 
 
-#endif //PROJECT_SAGI_LEV_C___POINT_H
+#endif //TETRIS_POINT_H
