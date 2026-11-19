@@ -1,8 +1,9 @@
-#pragma once
+#ifndef TETRIS_POINT_H
+#define TETRIS_POINT_H
 
 #include <iostream>
 #include "Direction.h"
-#include "console.h"
+#include "Console.h"
 
 class Point {
     int x = 1, y = 1;
@@ -35,3 +36,4 @@ public:
     }
 };
 
+#endif //TETRIS_POINT_H

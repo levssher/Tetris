@@ -1,4 +1,4 @@
-#include "console.h"
+#include "Console.h"
 #include "Point.h"
 #include "Screen.h"
 
