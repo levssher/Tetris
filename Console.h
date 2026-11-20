@@ -15,9 +15,7 @@
  *    Then include this file
  */
 
- #ifndef _CONSOLE_H_
- #define _CONSOLE_H_
-
+#pragma once
  #include <iostream>
 
   // ==================== PLATFORM  ====================
@@ -244,4 +242,4 @@
  }
 
 
- #endif // _CONSOLE_H_
+

@@ -1,6 +1,4 @@
-#ifndef TETRIS_POINT_H
-#define TETRIS_POINT_H
-
+#pragma once
 #include <iostream>
 #include "Direction.h"
 #include "Console.h"
@@ -36,4 +34,4 @@ public:
     }
 };
 
-#endif //TETRIS_POINT_H
+

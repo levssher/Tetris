@@ -1,6 +1,5 @@
-#include <iostream>
-
 #pragma once
+#include <iostream>
 #include "Point.h"
 
 using std::cout, std::endl;
