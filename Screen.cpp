@@ -3,7 +3,7 @@
 #include "Screen.h"
 
 void Screen::draw() const {
-    set_color(Color::Yellow);
+    set_color(Color::Green);
     for (int i = 0; i < MAX_Y; ++i) {
         gotoxy(0, i);
         std::cout << screen[i] << std::flush;
