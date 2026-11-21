@@ -5,7 +5,7 @@
 
 class Point {
     int x = 1, y = 1;
-    int dir_x = 1, dir_y = 0;
+    int dir_x = 0, dir_y = 1;
     char ch = '*';
     Color color = Color::White;
 public:

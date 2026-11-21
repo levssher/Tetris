@@ -7,11 +7,13 @@ enum class Tetromino {
 
 class Shape {
     static constexpr int SIZE = 4;
-    static constexpr int NUM_KEYS = 6;
     Point shape[SIZE];
-    char keys[NUM_KEYS];
+    Tetromino type;
 
     public:
-    Shape();
+    Shape(Tetromino t,int x, int y);
+    void draw();
+    void erase();
+    void move();
 };
 
