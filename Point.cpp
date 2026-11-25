@@ -1,4 +1,3 @@
-#pragma once
 #include "Console.h"
 #include "Point.h"
 #include "Screen.h"
