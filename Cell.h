@@ -7,10 +7,17 @@ class Cell {
     Color color = Color::White;
 
 public:
-    Cell() = default;
+    Cell() {
+    }
 
     Cell(char ch1, Color myColor) : ch(ch1), color(myColor) {
     }
+
+    void updateCell(Color col, char c='*') {
+        ch = c;
+        color = col;
+    }
+
 
     bool isEmpty() const {
         return ch == EMPTY_CHAR;
