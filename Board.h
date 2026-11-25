@@ -14,6 +14,7 @@ public:
     bool isBlocked(const Point& p) const;
     bool canPlace(const Shape& s) const;
     void lock(const Shape& s);
+    void draw() const;
 };
 
 
