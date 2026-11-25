@@ -1,12 +1,13 @@
 #pragma once
 #include "Point.h"
 #include "Shape.h"
+#include "Cell.h"
 
 class Board {
     static constexpr int ROWS = 20;
     static constexpr int COLS = 10;
     int offsetX, offsetY;
-    char grid[ROWS][COLS];
+    Cell grid[ROWS][COLS];
 
 public:
     Board(int x, int y);

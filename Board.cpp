@@ -3,7 +3,7 @@
 Board::Board(int x, int y) : offsetX(x), offsetY(y) {
     for (int r = 0; r < ROWS; ++r) {
         for (int c = 0; c < COLS; ++c) {
-            grid[r][c] = ' ';
+            grid[r][c] = Cell();
         }
     }
 }
@@ -15,7 +15,7 @@ bool Board::isBlocked(const Point& p) const {
     if (col < 0 || col >= COLS || row < 0 || row >= ROWS) {
         return true; // hit wall or floor
     }
-    return grid[row][col] != ' '; // hit a landed piece
+    return !grid[row][col].isEmpty() ; // hit a landed piece
 }
 
 bool Board::canPlace(const Shape& s) const {
@@ -32,7 +32,7 @@ void Board::lock(const Shape& s) {
         int col = s.getPoint(i).getX() - offsetX;
         int row = s.getPoint(i).getY() - offsetY;
         if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
-            grid[row][col] = '*';
+            grid[row][col].updateCell(s.getPoint (i).getColor());
         }
     }
 }
