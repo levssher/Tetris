@@ -1,11 +1,6 @@
 #include "Board.h"
 
 Board::Board(int x, int y) : offsetX(x), offsetY(y) {
-    for (int r = 0; r < ROWS; ++r) {
-        for (int c = 0; c < COLS; ++c) {
-            grid[r][c] = Cell();
-        }
-    }
 }
 
 bool Board::isBlocked(const Point& p) const {
