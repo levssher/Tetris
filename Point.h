@@ -32,6 +32,14 @@ public:
     int getY() const {
         return y;
     }
+
+    Color getColor() const {
+        return color;
+    }
+
+    char getChar() const {
+        return ch;
+    }
     void setPosition(int newX, int newY) {
         x = newX;
         y = newY;
