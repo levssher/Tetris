@@ -1,9 +1,6 @@
 #pragma once
 #include "Point.h"
-
-enum class Tetromino {
-    I, O, T, S, Z, J, L
-};
+#include "Tetromino.h"
 
 class Shape {
 public:
@@ -22,6 +19,5 @@ public:
     const Point& getPoint(int i) const {
         return shape[i];
     }
-
 };
 
