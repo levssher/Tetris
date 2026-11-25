@@ -1,11 +1,6 @@
 #include "Board.h"
 
 Board::Board(int x, int y) : offsetX(x), offsetY(y) {
-    for (int r = 0; r < ROWS; ++r) {
-        for (int c = 0; c < COLS; ++c) {
-            grid[r][c] = Cell();
-        }
-    }
 }
 
 bool Board::isBlocked(const Point& p) const {
@@ -35,4 +30,18 @@ void Board::lock(const Shape& s) {
             grid[row][col].updateCell(s.getPoint (i).getColor());
         }
     }
+}
+
+// Repaints every cell of the board, empty ones included (an empty cell prints a
+// space), so stale blocks are erased after rows move or the screen is cleared.
+void Board::draw() const {
+    for (int r = 0; r < ROWS; ++r) {
+        for (int c = 0; c < COLS; ++c) {
+            gotoxy(offsetX + c, offsetY + r);
+            set_color(grid[r][c].getColor());
+            std::cout << grid[r][c].getChar();
+        }
+    }
+    reset_color();
+    std::cout << std::flush;
 }
