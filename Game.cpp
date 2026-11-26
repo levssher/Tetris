@@ -2,8 +2,8 @@
 #include "Console.h"
 
 Game::Game()
-    : player1(P1_BOARD_X, BOARD_Y),
-      player2(P2_BOARD_X, BOARD_Y) {}
+    : player1(P1_BOARD_X, BOARD_Y, sequence),
+      player2(P2_BOARD_X, BOARD_Y, sequence) {}
 
 void Game::run() {
     screen.draw();

@@ -45,3 +45,35 @@ void Board::draw() const {
     reset_color();
     std::cout << std::flush;
 }
+
+// Removes every full row and drops the rows above it by one. Returns how many
+// rows were removed (0-4 for a single locked piece). Does not redraw.
+int Board::clearFullLines() {
+    int cleared = 0;
+    int row = ROWS - 1;
+    while (row >= 0) {
+        bool full = true;
+        for (int c = 0; c < COLS; ++c) {
+            if (grid[row][c].isEmpty()) {
+                full = false;
+                break;
+            }
+        }
+        if (!full) {
+            --row;
+            continue;
+        }
+        for (int r = row; r > 0; --r) {
+            for (int c = 0; c < COLS; ++c) {
+                grid[r][c] = grid[r - 1][c];
+            }
+        }
+        for (int c = 0; c < COLS; ++c) {
+            grid[0][c] = Cell();
+        }
+        ++cleared;
+        // No --row here: the row we stand on now holds what used to be above it,
+        // and that row may be full too.
+    }
+    return cleared;
+}

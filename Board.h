@@ -15,6 +15,7 @@ public:
     bool canPlace(const Shape& s) const;
     void lock(const Shape& s);
     void draw() const;
+    int clearFullLines();
 };
 
 
