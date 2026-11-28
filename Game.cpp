@@ -5,7 +5,10 @@ Game::Game()
     : player1(P1_BOARD_X, BOARD_Y, sequence),
       player2(P2_BOARD_X, BOARD_Y, sequence) {}
 
-void Game::run() {
+// Runs until the match ends (Finished) or ESC is pressed (Paused). Calling run() again
+// on a paused game redraws everything and resumes it.
+Game::Result Game::run() {
+    paused = false;
     screen.draw();
     player1.draw();
     player2.draw();
@@ -15,6 +18,9 @@ void Game::run() {
         player2.beginTick();
 
         handleInput();
+        if (paused) {
+            return Result::Paused;
+        }
         if (!gameOver) {
             deliverGarbage();
         }
@@ -35,6 +41,25 @@ void Game::run() {
         sleep_ms(TICK_MS);
         tick++;
     }
+    return Result::Finished;
+}
+
+// The player who is still alive wins. If both topped out in the same tick, the higher
+// score wins; equal scores are a tie.
+Game::Winner Game::getWinner() const {
+    if (!player1.isAlive() && player2.isAlive()) {
+        return Winner::Player2;
+    }
+    if (!player2.isAlive() && player1.isAlive()) {
+        return Winner::Player1;
+    }
+    if (player1.getScore() > player2.getScore()) {
+        return Winner::Player1;
+    }
+    if (player2.getScore() > player1.getScore()) {
+        return Winner::Player2;
+    }
+    return Winner::Tie;
 }
 
 void Game::handleInput() {
@@ -48,7 +73,7 @@ void Game::handleInput() {
                 }
                 continue;
             }
-            gameOver = true;
+            paused = true;
             return;
         }
 

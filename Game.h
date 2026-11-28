@@ -17,6 +17,7 @@ class Game {
     Player player2;
     int tick = 0;
     bool gameOver = false;
+    bool paused = false;
 
     void handleInput();
     void updateGravity();
@@ -25,6 +26,12 @@ class Game {
     static Action mapKeyP2(char key);
 
 public:
+    enum class Result { Paused, Finished };   // why run() returned
+    enum class Winner { Player1, Player2, Tie };
+
     Game();
-    void run();
+    Result run();
+    Winner getWinner() const;   // meaningful once run() returned Finished
+    int getScore1() const { return player1.getScore(); }
+    int getScore2() const { return player2.getScore(); }
 };
