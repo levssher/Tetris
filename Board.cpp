@@ -1,4 +1,5 @@
 #include "Board.h"
+#include "Colors.h"
 
 Board::Board(int x, int y) : offsetX(x), offsetY(y) {
 }
@@ -38,7 +39,7 @@ void Board::draw() const {
     for (int r = 0; r < ROWS; ++r) {
         for (int c = 0; c < COLS; ++c) {
             gotoxy(offsetX + c, offsetY + r);
-            set_color(grid[r][c].getColor());
+            Colors::apply(grid[r][c].getColor());
             std::cout << grid[r][c].getChar();
         }
     }

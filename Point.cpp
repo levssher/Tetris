@@ -1,10 +1,11 @@
 #include "Console.h"
 #include "Point.h"
 #include "Screen.h"
+#include "Colors.h"
 
 void Point::draw(char c) {
     gotoxy(x, y);
-    set_color(color);
+    Colors::apply(color);
     std::cout << c << std::flush;
     reset_color();
 }
