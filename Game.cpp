@@ -15,6 +15,9 @@ void Game::run() {
         player2.beginTick();
 
         handleInput();
+        if (!gameOver) {
+            deliverGarbage();
+        }
         if (gameOver || !player1.isAlive() || !player2.isAlive()) {
             gameOver = true;
             break;
@@ -22,6 +25,7 @@ void Game::run() {
 
         if (tick % GRAVITY_TICKS == 0) {
             updateGravity();
+            deliverGarbage();
             if (!player1.isAlive() || !player2.isAlive()) {
                 gameOver = true;
                 break;
@@ -64,6 +68,17 @@ void Game::handleInput() {
 void Game::updateGravity() {
     player1.stepGravity();
     player2.stepGravity();
+}
+
+void Game::deliverGarbage() {
+    int toP2 = player1.takeOutgoingGarbage();
+    int toP1 = player2.takeOutgoingGarbage();
+    if (toP2 > 0) {
+        player2.receiveGarbage(toP2);
+    }
+    if (toP1 > 0) {
+        player1.receiveGarbage(toP1);
+    }
 }
 
 Action Game::mapKeyP1(char key) {

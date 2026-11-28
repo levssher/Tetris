@@ -19,6 +19,7 @@ class Player {
     int statsY;
     int score = 0;
     int linesCleared = 0;
+    int outgoingGarbage = 0;
     bool alive = true;
     bool lockedThisTick = false;
 
@@ -35,12 +36,18 @@ public:
     // Points for clearing n lines at once: 1 -> 100, 2 -> 300, 3 -> 500, 4 -> 800.
     static int pointsForLines(int n);
 
+    // Garbage lines sent to opponent for clearing n lines at once:
+    // 1 -> 0, 2 -> 1, 3 -> 2, 4 -> 4.
+    static int garbageForLines(int n);
+
     Player(int boardX, int boardY, PieceSequence& seq);
 
     void draw();
     void beginTick();
     void handleAction(Action action);
     void stepGravity();
+    int takeOutgoingGarbage();
+    void receiveGarbage(int count);
     bool isAlive() const {
         return alive;
     }

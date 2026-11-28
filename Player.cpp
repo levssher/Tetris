@@ -25,6 +25,15 @@ int Player::pointsForLines(int n) {
     }
 }
 
+int Player::garbageForLines(int n) {
+    switch (n) {
+        case 2: return 1;
+        case 3: return 2;
+        case 4: return 4;
+        default: return 0;
+    }
+}
+
 void Player::draw() {
     board.draw();
     if (alive) {
@@ -51,10 +60,56 @@ void Player::lockPiece() {
     if (cleared > 0) {
         linesCleared += cleared;
         score += pointsForLines(cleared);
+        outgoingGarbage += garbageForLines(cleared);
         board.draw();
     }
     drawStats();
     spawnShape();
+}
+
+int Player::takeOutgoingGarbage() {
+    int lines = outgoingGarbage;
+    outgoingGarbage = 0;
+    return lines;
+}
+
+void Player::receiveGarbage(int count) {
+    if (count <= 0 || !alive) {
+        return;
+    }
+
+    bool survived = board.addGarbageLines(count);
+    if (!survived) {
+        alive = false;
+        board.draw();
+        return;
+    }
+
+    // If rising blocks now overlap the falling piece, lift it just enough to clear them.
+    int lifted = 0;
+    while (!board.canPlace(shape) && lifted < count) {
+        bool atTop = false;
+        for (int i = 0; i < Shape::SIZE; ++i) {
+            if (shape.getPoint(i).getY() <= spawnY) {
+                atTop = true;
+                break;
+            }
+        }
+        if (atTop) {
+            break;
+        }
+        shape.move(Direction::UP);
+        ++lifted;
+    }
+
+    if (!board.canPlace(shape)) {
+        alive = false;
+    }
+
+    board.draw();
+    if (alive) {
+        shape.draw();
+    }
 }
 
 // The piece being held is sequence[nextIndex - 1], so the preview is sequence[nextIndex].

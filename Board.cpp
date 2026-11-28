@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <cstdlib>
 
 Board::Board(int x, int y) : offsetX(x), offsetY(y) {
 }
@@ -76,4 +77,56 @@ int Board::clearFullLines() {
         // and that row may be full too.
     }
     return cleared;
+}
+
+bool Board::addGarbageLines(int count, int gap1, int gap2) {
+    if (count <= 0) {
+        return true;
+    }
+
+    bool survived = true;
+    if (count > ROWS) {
+        survived = false;
+        count = ROWS;
+    }
+
+    for (int r = 0; r < count && survived; ++r) {
+        for (int c = 0; c < COLS; ++c) {
+            if (!grid[r][c].isEmpty()) {
+                survived = false;
+                break;
+            }
+        }
+    }
+
+    for (int r = 0; r < ROWS - count; ++r) {
+        for (int c = 0; c < COLS; ++c) {
+            grid[r][c] = grid[r + count][c];
+        }
+    }
+
+    for (int r = ROWS - count; r < ROWS; ++r) {
+        for (int c = 0; c < COLS; ++c) {
+            if (c == gap1 || c == gap2) {
+                grid[r][c] = Cell();
+            } else {
+                grid[r][c] = Cell('*', Color::Gray);
+            }
+        }
+    }
+
+    return survived;
+}
+
+bool Board::addGarbageLines(int count) {
+    if (count <= 0) {
+        return true;
+    }
+
+    int gap1 = std::rand() % COLS;
+    int gap2 = std::rand() % (COLS - 1);
+    if (gap2 >= gap1) {
+        ++gap2;
+    }
+    return addGarbageLines(count, gap1, gap2);
 }
