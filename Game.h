@@ -20,6 +20,7 @@ class Game {
 
     void handleInput();
     void updateGravity();
+    void deliverGarbage();
     static Action mapKeyP1(char key);
     static Action mapKeyP2(char key);
 
