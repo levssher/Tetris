@@ -5,7 +5,10 @@ Game::Game()
     : player1(P1_BOARD_X, BOARD_Y, sequence),
       player2(P2_BOARD_X, BOARD_Y, sequence) {}
 
-void Game::run() {
+// Runs until the match ends (Finished) or ESC is pressed (Paused). Calling run() again
+// on a paused game redraws everything and resumes it.
+Game::Result Game::run() {
+    paused = false;
     screen.draw();
     player1.draw();
     player2.draw();
@@ -15,6 +18,9 @@ void Game::run() {
         player2.beginTick();
 
         handleInput();
+        if (paused) {
+            return Result::Paused;
+        }
         if (gameOver || !player1.isAlive() || !player2.isAlive()) {
             gameOver = true;
             break;
@@ -31,6 +37,7 @@ void Game::run() {
         sleep_ms(TICK_MS);
         tick++;
     }
+    return Result::Finished;
 }
 
 void Game::handleInput() {
@@ -44,7 +51,7 @@ void Game::handleInput() {
                 }
                 continue;
             }
-            gameOver = true;
+            paused = true;
             return;
         }
 

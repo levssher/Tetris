@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "Console.h"
-#include "Game.h"
+#include "Menu.h"
 #include "Screen.h"
 
 int main() {
@@ -10,8 +10,8 @@ int main() {
     clrscr();
     hideCursor();
 
-    Game game;
-    game.run();
+    Menu menu;
+    menu.run();
 
     gotoxy(0, Screen::MAX_Y);
     cleanup_console();

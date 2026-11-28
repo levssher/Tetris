@@ -17,6 +17,7 @@ class Game {
     Player player2;
     int tick = 0;
     bool gameOver = false;
+    bool paused = false;
 
     void handleInput();
     void updateGravity();
@@ -24,6 +25,8 @@ class Game {
     static Action mapKeyP2(char key);
 
 public:
+    enum class Result { Paused, Finished };   // why run() returned
+
     Game();
-    void run();
+    Result run();
 };
