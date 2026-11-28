@@ -34,4 +34,6 @@ public:
     Winner getWinner() const;   // meaningful once run() returned Finished
     int getScore1() const { return player1.getScore(); }
     int getScore2() const { return player2.getScore(); }
+    int getLines1() const { return player1.getLinesCleared(); }
+    int getLines2() const { return player2.getLinesCleared(); }
 };

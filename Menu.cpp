@@ -55,9 +55,11 @@ void Menu::playCurrentGame() {
             case Game::Winner::Player2: cout << "Player 2 WINS!"; break;
             case Game::Winner::Tie:     cout << "It's a TIE!";   break;
         }
-        gotoxy(28, 12);
-        cout << "Score  P1: " << game->getScore1() << "   P2: " << game->getScore2();
-        gotoxy(22, 15);
+        gotoxy(14, 12);
+        cout << "Player 1:  Score " << game->getScore1() << "   Lines cleared " << game->getLines1();
+        gotoxy(14, 13);
+        cout << "Player 2:  Score " << game->getScore2() << "   Lines cleared " << game->getLines2();
+        gotoxy(22, 16);
         cout << "Press any key to return to the menu";
         cout << std::flush;
         while (check_kbhit()) {   // drop keys still queued from the game
