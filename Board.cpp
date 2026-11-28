@@ -68,15 +68,26 @@ int Board::clearFullLines() {
             for (int c = 0; c < COLS; ++c) {
                 grid[r][c] = grid[r - 1][c];
             }
+            garbageRow[r] = garbageRow[r - 1];
         }
         for (int c = 0; c < COLS; ++c) {
             grid[0][c] = Cell();
         }
+        garbageRow[0] = false;
         ++cleared;
         // No --row here: the row we stand on now holds what used to be above it,
         // and that row may be full too.
     }
     return cleared;
+}
+
+bool Board::hasActiveGarbageLines() const {
+    for (int r = 0; r < ROWS; ++r) {
+        if (garbageRow[r]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Board::addGarbageLines(int count, int gap1, int gap2) {
@@ -103,6 +114,7 @@ bool Board::addGarbageLines(int count, int gap1, int gap2) {
         for (int c = 0; c < COLS; ++c) {
             grid[r][c] = grid[r + count][c];
         }
+        garbageRow[r] = garbageRow[r + count];
     }
 
     for (int r = ROWS - count; r < ROWS; ++r) {
@@ -113,7 +125,11 @@ bool Board::addGarbageLines(int count, int gap1, int gap2) {
                 grid[r][c] = Cell('*', Color::Gray);
             }
         }
+        garbageRow[r] = true;
     }
+
+    activeGarbageGap1 = gap1;
+    activeGarbageGap2 = gap2;
 
     return survived;
 }
@@ -121,6 +137,10 @@ bool Board::addGarbageLines(int count, int gap1, int gap2) {
 bool Board::addGarbageLines(int count) {
     if (count <= 0) {
         return true;
+    }
+
+    if (hasActiveGarbageLines()) {
+        return addGarbageLines(count, activeGarbageGap1, activeGarbageGap2);
     }
 
     int gap1 = std::rand() % COLS;
