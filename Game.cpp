@@ -44,6 +44,24 @@ Game::Result Game::run() {
     return Result::Finished;
 }
 
+// The player who is still alive wins. If both topped out in the same tick, the higher
+// score wins; equal scores are a tie.
+Game::Winner Game::getWinner() const {
+    if (!player1.isAlive() && player2.isAlive()) {
+        return Winner::Player2;
+    }
+    if (!player2.isAlive() && player1.isAlive()) {
+        return Winner::Player1;
+    }
+    if (player1.getScore() > player2.getScore()) {
+        return Winner::Player1;
+    }
+    if (player2.getScore() > player1.getScore()) {
+        return Winner::Player2;
+    }
+    return Winner::Tie;
+}
+
 void Game::handleInput() {
     while (check_kbhit()) {
         char key = static_cast<char>(get_single_char());

@@ -47,9 +47,17 @@ void Menu::playCurrentGame() {
     Game::Result result = game->run();
     if (result == Game::Result::Finished) {
         clearScreen();
-        gotoxy(33, 10);
+        gotoxy(33, 8);
         cout << "GAME OVER";
-        gotoxy(22, 12);
+        gotoxy(30, 10);
+        switch (game->getWinner()) {
+            case Game::Winner::Player1: cout << "Player 1 WINS!"; break;
+            case Game::Winner::Player2: cout << "Player 2 WINS!"; break;
+            case Game::Winner::Tie:     cout << "It's a TIE!";   break;
+        }
+        gotoxy(28, 12);
+        cout << "Score  P1: " << game->getScore1() << "   P2: " << game->getScore2();
+        gotoxy(22, 15);
         cout << "Press any key to return to the menu";
         cout << std::flush;
         while (check_kbhit()) {   // drop keys still queued from the game

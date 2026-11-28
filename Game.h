@@ -27,7 +27,11 @@ class Game {
 
 public:
     enum class Result { Paused, Finished };   // why run() returned
+    enum class Winner { Player1, Player2, Tie };
 
     Game();
     Result run();
+    Winner getWinner() const;   // meaningful once run() returned Finished
+    int getScore1() const { return player1.getScore(); }
+    int getScore2() const { return player2.getScore(); }
 };
